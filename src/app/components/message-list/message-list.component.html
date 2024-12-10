@@ -1,0 +1,45 @@
+<div class="container">
+  <!-- Inbox Panel -->
+  <div class="inbox">
+    <h3>Inbox</h3>
+    <ul>
+      <li
+        *ngFor="let user of users"
+        [class.unread]="user.unreadCount > 0"
+        (click)="selectUser(user)"
+      >
+        {{ user.username }}
+        <!-- <span *ngIf="user.unreadCount > 0" class="unread-badge">
+          {{ user.unreadCount }}
+        </span> -->
+      </li>
+    </ul>
+  </div>
+
+  <!-- Conversation Panel -->
+  <div class="conversation">
+    <div class="conversation-header">
+      <h3>Conversation with {{ activeUser?.username  }}</h3>
+    </div>
+
+    <div class="messages">
+      <div
+        *ngFor="let message of messages"
+        [class.sent]="message.senderId === currentUserId"
+        [class.received]="message.receiverId === currentUserId"
+      >
+        <p>{{ message.content }}</p>
+      </div>
+    </div>
+
+    <!-- Message Input -->
+    <div class="message-input">
+      <input
+        type="text"
+        [(ngModel)]="newMessage"
+        placeholder="Type a message..."
+      />
+      <button   (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
